@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import TodoTable from "./TodoTable.jsx";
 function ToDoList() {
   const [todo, setTodo] = useState({ desc: "", date: "" });
   const [todos, setTodos] = useState([]);
@@ -12,7 +12,6 @@ function ToDoList() {
       alert("missing data");
       setTodo({ desc: "", date: "" });
     }
-    console.log(todos);
   };
   const deleteToDo = (index) => {
     const filterdTodo = todos.filter((i) => i !== todos[index]);
@@ -32,19 +31,7 @@ function ToDoList() {
         value={todo.date}
       />
       <button onClick={addToDo}>Add</button>
-      <table>
-        <tbody>
-          {todos.map((todo, index) => (
-            <tr key={index}>
-              <td>{todo.desc}</td>
-              <td>{todo.date}</td>
-              <td>
-                <button onClick={() => deleteToDo(index)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TodoTable todos={todos} deleteToDo ={deleteToDo}/>
     </>
   );
 }
