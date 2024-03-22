@@ -1,22 +1,32 @@
 import "./App.css";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseLine";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+
+import React from "react";
+import Home from "./Home.jsx";
+import Error from "./Error.jsx";
 import ToDoList from "./ToDoList.jsx";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 function App() {
-  return (
-    <Container maxWidth="x1">
-      <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6">My Todos</Typography>
-        </Toolbar>
-      </AppBar>
-      <ToDoList />
-    </Container>
-  );
+	const [value, setValue] = React.useState(0);
+
+	const handleChange = (e, newValue) => {
+		setValue(newValue);
+	};
+
+	return (
+		<BrowserRouter>
+			<Tabs value={value} onChange={handleChange}>
+				<Tab label="Home" component={Link} to="/" />
+				<Tab label="My To Do List" component={Link} to="/ToDoList" />
+			</Tabs>
+			<Routes>
+				<Route path="/" exact Component={Home} />
+				<Route path="/ToDoList" exact Component={ToDoList} />
+				<Route Component={Error} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
